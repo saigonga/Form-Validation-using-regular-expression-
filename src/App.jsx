@@ -68,7 +68,6 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Always trim the value for validation and state
     const trimmedValue = value.trimStart();
     setFormData((prev) => {
       const updated = { ...prev, [name]: trimmedValue };
