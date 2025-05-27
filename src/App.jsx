@@ -24,24 +24,23 @@ function App() {
   const validateForm = () => {
     let tempErrors = {};
     // First Name
-    if (formData.firstName && !/^[a-zA-Z]{2,}$/.test(formData.firstName)) {
+    if (formData.firstName && !/^[a-zA-Z]{2,}$/.test(formData.firstName.trim())) {
       tempErrors.firstName = "Enter a valid First Name";
     }
     // Last Name
-    if (formData.lastName && !/^[a-zA-Z]{2,}$/.test(formData.lastName)) {
+    if (formData.lastName && !/^[a-zA-Z]{2,}$/.test(formData.lastName.trim())) {
       tempErrors.lastName = "Enter a valid Last Name";
     }
     // Username
-    if (formData.userName && !/^[a-zA-Z0-9_]{3,}$/.test(formData.userName)) {
-      tempErrors.userName =
-        "Enter a valid Username (min 3 chars, letters, numbers, _)";
+    if (formData.userName && !/^[a-zA-Z0-9_]{3,}$/.test(formData.userName.trim())) {
+      tempErrors.userName = "Enter a valid Username (min 3 chars, letters, numbers, _)";
     }
     // Email
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       tempErrors.email = "Enter a valid Email";
     }
     // Password
-    if (formData.password && formData.password.length > 6) {
+    if (formData.password && formData.password.length < 6) {
       tempErrors.password = "Password must be at least 6 characters and above";
     }
     // Confirm Password
@@ -52,15 +51,15 @@ function App() {
       tempErrors.confirmPassword = "Passwords do not match";
     }
     // Phone Number
-    if (formData.phoneNo && !/^[0-9]{10}$/.test(formData.phoneNo)) {
+    if (formData.phoneNo && !/^[0-9]{10}$/.test(formData.phoneNo.trim())) {
       tempErrors.phoneNo = "Enter a valid 10-digit Phone Number";
     }
     // PAN Number
-    if (formData.panNo && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo)) {
+    if (formData.panNo && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNo.trim())) {
       tempErrors.panNo = "Enter a valid PAN Number (e.g., ABCDE1234F)";
     }
     // Aadhar Number
-    if (formData.aadharNo && !/^[0-9]{12}$/.test(formData.aadharNo)) {
+    if (formData.aadharNo && !/^[0-9]{12}$/.test(formData.aadharNo.trim())) {
       tempErrors.aadharNo = "Enter a valid 12-digit Aadhar Number";
     }
     setErrors(tempErrors);
@@ -69,47 +68,45 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Always trim the value for validation and state
+    const trimmedValue = value.trimStart();
     setFormData((prev) => {
-      const updated = { ...prev, [name]: value };
+      const updated = { ...prev, [name]: trimmedValue };
       let tempErrors = {};
       // First Name
-      if (updated.firstName && !/^[a-zA-Z]{2,}$/.test(updated.firstName)) {
+      if (updated.firstName && !/^[a-zA-Z]{2,}$/.test(updated.firstName.trim())) {
         tempErrors.firstName = "Enter a valid First Name";
       }
       // Last Name
-      if (updated.lastName && !/^[a-zA-Z]{2,}$/.test(updated.lastName)) {
+      if (updated.lastName && !/^[a-zA-Z]{2,}$/.test(updated.lastName.trim())) {
         tempErrors.lastName = "Enter a valid Last Name";
       }
       // Username
-      if (updated.userName && !/^[a-zA-Z0-9_]{3,}$/.test(updated.userName)) {
-        tempErrors.userName =
-          "Enter a valid Username (min 3 chars, letters, numbers, _)";
+      if (updated.userName && !/^[a-zA-Z0-9_]{3,}$/.test(updated.userName.trim())) {
+        tempErrors.userName = "Enter a valid Username (min 3 chars, letters, numbers, _)";
       }
       // Email
-      if (updated.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updated.email)) {
+      if (updated.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updated.email.trim())) {
         tempErrors.email = "Enter a valid Email";
       }
       // Password
       if (updated.password && updated.password.length < 6) {
-        tempErrors.password = "Password must be at least 6 characters ";
+        tempErrors.password = "Password must be at least 6 characters";
       }
       // Confirm Password
-      if (
-        updated.confirmPassword &&
-        updated.confirmPassword !== updated.password
-      ) {
+      if (updated.confirmPassword && updated.confirmPassword !== updated.password) {
         tempErrors.confirmPassword = "Passwords do not match";
       }
       // Phone Number
-      if (updated.phoneNo && !/^[0-9]{10}$/.test(updated.phoneNo)) {
+      if (updated.phoneNo && !/^[0-9]{10}$/.test(updated.phoneNo.trim())) {
         tempErrors.phoneNo = "Enter a valid 10-digit Phone Number";
       }
       // PAN Number
-      if (updated.panNo && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(updated.panNo)) {
+      if (updated.panNo && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(updated.panNo.trim())) {
         tempErrors.panNo = "Enter a valid PAN Number (e.g., ABCDE1234F)";
       }
       // Aadhar Number
-      if (updated.aadharNo && !/^[0-9]{12}$/.test(updated.aadharNo)) {
+      if (updated.aadharNo && !/^[0-9]{12}$/.test(updated.aadharNo.trim())) {
         tempErrors.aadharNo = "Enter a valid 12-digit Aadhar Number";
       }
       setErrors(tempErrors);
